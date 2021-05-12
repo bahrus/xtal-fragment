@@ -66,6 +66,6 @@ xtal-wrap extends xtal-fragment.
 
 xtal-fragment just overrides appendChild, to make the children appended become siblings.  No support for  copy from, or proxying.
 
-Maybe [sceadu-fæx](https://github.com/bahrus/sceadu-fax) extends xtal-fragment, with support for slots?
+Maybe [sceadu-fæx](https://github.com/bahrus/sceadu-fax) extends xtal-fragment, with support for slots, and xtal-wrap extends sceadu-fæx?
 
 Only support one level of slotting.  Would nested xtal-wraps be able to take care of multi-level slotting?
