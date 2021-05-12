@@ -34,7 +34,7 @@ Instead of web component wrapper, use templates, with the help of a reusable ele
 </fieldset>
 </template>
 
-<xtal-wrap copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy><template id="myFragment">
+<xtal-wrap copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy>
     <h3 slot=label>My Legend</h3>
     <my-grid slot=field-container></my-grid>
     <my-chart slot=field-container></my-chart>
@@ -45,6 +45,7 @@ generates:
 
 ```html
 <xtal-wrap style=display:none copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
+<make-fieldset-expandable></make-fieldset-expandable>
 <fieldset>
   <legend><h3 slot=label>My Legend</h3></legend>
   <my-grid slot=field-container></my-grid>
@@ -56,7 +57,7 @@ Here the "interface" is the identifier: my-field-category-holder.
 
 The "from" attribute can look for an id in the same shadowDOM, **or** it can look for a property of the host element, which dependency injects the desired template.  The latter takes precedence.
 
-If you delete xtal-wrap, it automatically deletes fieldset.
+If you delete xtal-wrap, it automatically deletes make-fieldset-expandable, fieldset.
 
 Exposes method extractContents() for moving.
 
