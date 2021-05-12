@@ -38,7 +38,7 @@ Instead of web component wrapper, use templates, with the help of a reusable ele
     <h3 slot=label>My Legend</h3>
     <my-grid slot=field-container></my-grid>
     <my-chart slot=field-container></my-chart>
-</template></xtal-wrap>
+</xtal-wrap>
 ```
 
 generates:
@@ -46,9 +46,9 @@ generates:
 ```html
 <xtal-wrap style=display:none copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
 <fieldset>
-  <legend>My Legend</legend>
-    <my-grid></my-grid>
-    <my-chart></my-chart>
+  <legend><h3 slot=label>My Legend</h3></legend>
+  <my-grid slot=field-container></my-grid>
+  <my-chart slot=field-container></my-chart>
 </fieldset>
 ```
 
@@ -67,3 +67,5 @@ xtal-wrap extends xtal-fragment.
 xtal-fragment just overrides appendChild, to make the children appended become siblings.  No support for  copy from, or proxying.
 
 Maybe [sceadu-fæx](https://github.com/bahrus/sceadu-fax) extends xtal-fragment, with support for slots?
+
+Only support one level of slotting.  Would nested xtal-wraps be able to take care of multi-level slotting?
