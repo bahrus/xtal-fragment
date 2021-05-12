@@ -8,9 +8,9 @@ For example, we want to wrap fields in categories.
 
 So the natural thing is to use native fieldset, that's what it is designed for.
 
-But maybe we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."
+Or maybe later we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."  Do so without rewriting the component.
 
-We could use a wrapper element, but we end with up with deeply nested components just to signify minor enhancements.  Or too much unnecessary shadow dom.
+We could use a wrapper element, but we end with up with deeply nested components just to signify minor enhancements and/or plug'n'play, rather than true parent child relationship.  And/or too much unnecessary shadow dom.
 
 Maybe we want an expandable fieldset, represented by a [decorator](https://github.com/bahrus/xtal-deco):
 
@@ -52,7 +52,9 @@ generates:
 </fieldset>
 ```
 
-The from can look for an id in the same shadowDOM, or it can look for a property of the host element, which dependency injects the desired template.
+Here the "interface" is the identifier: my-field-category-holder.
+
+The "from" attribute can look for an id in the same shadowDOM, **or** it can look for a property of the host element, which dependency injects the desired template.  The latter takes precedence.
 
 If you delete xtal-wrap, it automatically deletes fieldset.
 
