@@ -65,3 +65,5 @@ How does xtal-fragment fit in?
 xtal-wrap extends xtal-fragment.
 
 xtal-fragment just overrides appendChild, to make the children appended become siblings.  No support for  copy from, or proxying.
+
+Maybe [sceadu-fæx](https://github.com/bahrus/sceadu-fax) extends xtal-fragment, with support for slots?
