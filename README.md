@@ -8,7 +8,7 @@ For example, we want to wrap fields in categories.
 
 So the natural thing is to use native fieldset, that's what it is designed for.
 
-Or maybe later we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."  Do so without rewriting the component.
+Or maybe later we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."  Do so without rewriting the host component (xtal-props).
 
 We could use a wrapper element, but we end with up with deeply nested components just to signify minor enhancements and/or plug'n'play, rather than true parent child relationship.  And/or too much unnecessary shadow dom.
 
