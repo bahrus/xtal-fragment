@@ -1,8 +1,56 @@
 # xtal-fragment
 
-Problem statement
+xtal-fragment is a web component that is similar to [carbon-copy](https://github.com/bahrus/carbon-copy) with one significant difference -- xtal-fragment specializes in creating a "virtual grouping" of components, rather than a nested parent/child grouping.  It also eschews ShadowDOM completely, as xtal-fragment is not focused on working with style encapsulation.
 
-Develop a generic component like [e.g. xtal-props](https://github.com/bahrus/xtal-props) while adhering to goals of [metamorf](https://github.com/bahrus/metamorf)
+The name of the component draws inspiration from [React fragments](https://mariusschulz.com/blog/jsx-fragment-syntax-in-typescript#:~:text=A%20fragment%20lets%20us%20group%20multiple%20JSX%20elements,React.Fragment%20instead%20of%20using%20the%20new%20JSX%20syntax%3A), and there is perhaps a small overlap in goals between the two.
+
+## Syntax [TODO]
+
+```html
+<template id=ionic-crystals>
+  <li>potassium chloride</li>
+  <li>potassium fluoride</li>
+</template>
+
+<template id=covalent-crystals>
+  <li>diamond</li>
+  <li>carbide</li>
+</template>
+
+<ul>
+  <xtal-fragment import from=./ionic-crystals></xtal-fragment>
+  <xtal-fragment import from=./covalent-crystals></xtal-fragment>
+</ul>
+```
+
+produces:
+
+```html
+<template id=ionic-crystals>
+  <li>potassium chloride</li>
+  <li>potassium fluoride</li>
+</template>
+
+<template id=covalent-crystals>
+  <li>diamond</li>
+  <li>carbide</li>
+</template>
+
+<ul>
+  <xtal-fragment import from=./ionic-crystals style=display:none></xtal-fragment>
+  <li>potassium chloride</li>
+  <li>potassium fluoride</li>  
+  <xtal-fragment import from=./covalent-crystals style=display:none></xtal-fragment>
+  <li>diamond</li>
+  <li>carbide</li>
+</ul>
+```
+
+Deleting the xtal-fragment element causes the "ownedSiblings" to also part middle-DOM.
+
+## Vague Larger Problem Statement
+
+Be able to develop a generic component like [e.g. xtal-props](https://github.com/bahrus/xtal-props) while adhering to goals of [metamorf](https://github.com/bahrus/metamorf)
 
 For example, we want to wrap fields in categories.
 
@@ -44,7 +92,7 @@ Instead of web component wrapper, use templates, with the help of a reusable ele
 generates:
 
 ```html
-<xtal-wrap style=display:none copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
+<xtal-wrap style=display:none import from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
 <make-fieldset-expandable></make-fieldset-expandable>
 <fieldset>
   <legend><h3 slot=label>My Legend</h3></legend>
