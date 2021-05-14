@@ -51,7 +51,7 @@ Deleting the xtal-fragment element causes the "ownedSiblings" to also part middl
 **NB:**  This component may not play well with other rendering libraries. For a rendering library to be compatible with this component, it must:
 
 1.  Move the fragment owned by the xtal-fragment instance via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
-2.  Skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling where $0 is the instance of xtal-fragment.
+2.  Skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
 
 ## Vague Larger Problem Statement
 
