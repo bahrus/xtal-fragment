@@ -18,8 +18,8 @@ The name of the component draws inspiration from [React fragments](https://mariu
 </template>
 
 <ul>
-  <xtal-fragment import from=./ionic-crystals></xtal-fragment>
-  <xtal-fragment import from=./covalent-crystals></xtal-fragment>
+  <xtal-fragment copy from=./ionic-crystals></xtal-fragment>
+  <xtal-fragment copy from=./covalent-crystals></xtal-fragment>
 </ul>
 ```
 
@@ -37,16 +37,21 @@ produces:
 </template>
 
 <ul>
-  <xtal-fragment import from=./ionic-crystals style=display:none></xtal-fragment>
+  <xtal-fragment copy from=./ionic-crystals style=display:none></xtal-fragment>
   <li>potassium chloride</li>
   <li>potassium fluoride</li>  
-  <xtal-fragment import from=./covalent-crystals style=display:none></xtal-fragment>
+  <xtal-fragment copy from=./covalent-crystals style=display:none></xtal-fragment>
   <li>diamond</li>
   <li>carbide</li>
 </ul>
 ```
 
 Deleting the xtal-fragment element causes the "ownedSiblings" to also part middle-DOM.
+
+**NB:**  This component may not play well with other rendering libraries. For a rendering library to be compatible with this component, it must:
+
+1.  Move the fragment owned by the xtal-fragment instance via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
+2.  Skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling where $0 is the instance of xtal-fragment.
 
 ## Vague Larger Problem Statement
 
