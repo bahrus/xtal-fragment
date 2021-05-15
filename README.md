@@ -8,11 +8,13 @@ The name of the component draws inspiration from [React fragments](https://mariu
 
 ```html
 <template id=ionic-crystals>
+  <li><h3>Ionic Crystals</h3></li>
   <li>potassium chloride</li>
   <li>potassium fluoride</li>
 </template>
 
 <template id=covalent-crystals>
+  <li><h3>Covalent Crystals</h3></li>
   <li>diamond</li>
   <li>carbide</li>
 </template>
@@ -26,17 +28,9 @@ The name of the component draws inspiration from [React fragments](https://mariu
 produces:
 
 ```html
-<template id=ionic-crystals>
-  <li><h3>Ionic Crystals</h3></li>
-  <li>potassium chloride</li>
-  <li>potassium fluoride</li>
-</template>
 
-<template id=covalent-crystals>
-  <li><h3>Covalent Crystals</h3></li>
-  <li>diamond</li>
-  <li>carbide</li>
-</template>
+
+
 
 <ul>
   <xtal-fragment copy from=ionic-crystals style=display:none></xtal-fragment>
@@ -92,9 +86,11 @@ Instead of a web component wrapper, why not use templates, with the help of a re
 </template>
 
 <xtal-wrap copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy>
+  <template>
     <h3 slot=label>My Legend</h3>
     <my-grid slot=field-container></my-grid>
     <my-chart slot=field-container></my-chart>
+  </template>
 </xtal-wrap>
 ```
 

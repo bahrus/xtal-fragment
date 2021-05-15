@@ -8,14 +8,18 @@ export class XtalFragment extends HTMLElement implements ReactiveSurface{
     self = this;
     propActions = propActions;
     reactor: IReactor = new xc.Rx(this);
-
+    isVisual = false;
     
     copy: boolean | undefined;
 
     from: string | undefined;
 
+    clonedTemplateCallback(clonedTemplate: DocumentFragment){}
+
     connectedCallback(){
-        this.style.display = 'none';
+        if(!this.isVisual) {
+            this.style.display = 'none';
+        }
         xc.mergeProps(this, slicedPropDefs);
     }
 
@@ -25,7 +29,7 @@ export class XtalFragment extends HTMLElement implements ReactiveSurface{
 
     //TODO: mixin
     _retries = 0;
-    ownedSiblings: WeakSet<Element> = new WeakSet<Element>();
+    //ownedSiblings: WeakSet<Element> = new WeakSet<Element>();
     lastOwnedSibling: Element | undefined;
     disconnectedCallback(){
         if(!this._doNotCleanUp) this.ownedRange?.deleteContents();
@@ -68,7 +72,7 @@ export const loadFragment = ({copy, from, self}: XtalFragment) =>{
         }
     }else{
         self.ownedRange?.deleteContents();
-        const appendages = insertAdjacentTemplate(templ as HTMLTemplateElement, self, 'afterend');
+        const appendages = insertAdjacentTemplate(templ as HTMLTemplateElement, self, 'afterend', self.clonedTemplateCallback.bind(self));
         self.lastOwnedSibling = appendages.pop();
     }
 };
