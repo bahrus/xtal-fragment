@@ -40,9 +40,11 @@ produces:
 
 <ul>
   <xtal-fragment copy from=ionic-crystals style=display:none></xtal-fragment>
+  <li><h3>Ionic Crystals</h3></li>
   <li>potassium chloride</li>
   <li>potassium fluoride</li>  
   <xtal-fragment copy from=covalent-crystals style=display:none></xtal-fragment>
+  <li><h3>Covalent Crystals</h3></li>
   <li>diamond</li>
   <li>carbide</li>
 </ul>
@@ -50,20 +52,20 @@ produces:
 
 Deleting the xtal-fragment element causes the "ownedSiblings" to also part middle-DOM.
 
-**NB:**  This component may not play well with other rendering libraries. For a rendering library to be compatible with this component, it must use the following API:
+**NB:**  This component might not play well with other rendering libraries. For a rendering library to be compatible with this component, it must use the following API:
 
-1.  If the contents owned by xtal-fragment need to be moved, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
-2.  Skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
+1.  If the contents "owned" by xtal-fragment need to be moved to a new location in the DOM tree, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
+2.  The rendering library may need to skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling, where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
 
 ## Vague Larger Problem Statement
 
-Be able to develop a generic component like [e.g. xtal-props](https://github.com/bahrus/xtal-props) while adhering to goals of [metamorf](https://github.com/bahrus/metamorf)
+Be able to develop a generic component like [e.g. xtal-props](https://github.com/bahrus/xtal-props) while adhering to the goals of [metamorf](https://github.com/bahrus/metamorf)
 
 For example, a key functionality for xtal-props is to be able to group properties by category.
 
-So the natural thing is to use native fieldset -- that's what it is designed for.
+So the natural thing is to use the native fieldset element -- that's what it is designed for.
 
-But maybe later we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."  We want to be able to replace one for another, but without rewriting the host component (xtal-props).
+But maybe later we want to "dependency inject" some other, more sophisticated fieldset-equivalent, that does what fieldset does, but better, following some design library "language."  We want to be able to replace one for another, but without rewriting the host component (xtal-props).
 
 We could use a general purpose fieldset wrapper element, but we end with up with deeply nested components just to signify minor enhancements and/or plug-n-play, rather than true parent child relationship.  And/or too much unnecessary shadow DOM.
 
@@ -85,11 +87,11 @@ Instead of a web component wrapper, why not use templates, with the help of a re
 <make-fieldset-expandable></make-fieldset-expandable>
 <fieldset>
   <legend><slot name=label></slot></legend>
-  <slot name=field-container>
+  <slot name=field-container></slot>
 </fieldset>
 </template>
 
-<xtal-wrap import from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy>
+<xtal-wrap copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy>
     <h3 slot=label>My Legend</h3>
     <my-grid slot=field-container></my-grid>
     <my-chart slot=field-container></my-chart>
@@ -99,7 +101,7 @@ Instead of a web component wrapper, why not use templates, with the help of a re
 generates:
 
 ```html
-<xtal-wrap style=display:none import from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
+<xtal-wrap style=display:none copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
 <make-fieldset-expandable></make-fieldset-expandable>
 <fieldset>
   <legend><h3 slot=label>My Legend</h3></legend>
@@ -110,7 +112,7 @@ generates:
 
 Here the "interface" is the identifier: my-field-category-holder.
 
-The "from" attribute can look for an id in the same shadowDOM, **or** it can look for a property of the host element, which dependency injects the desired template.  The latter takes precedence.
+The "from" attribute can look for an id in the same shadowDOM, **or** it can look for a (camelCase -- myFieldCategoryHolder in this example) property of the host element, which dependency injects the desired template.  The latter takes precedence.
 
 If you delete xtal-wrap, it automatically deletes make-fieldset-expandable, fieldset.
 
