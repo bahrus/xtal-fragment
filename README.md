@@ -27,11 +27,13 @@ produces:
 
 ```html
 <template id=ionic-crystals>
+  <li><h3>Ionic Crystals</h3></li>
   <li>potassium chloride</li>
   <li>potassium fluoride</li>
 </template>
 
 <template id=covalent-crystals>
+  <li><h3>Covalent Crystals</h3></li>
   <li>diamond</li>
   <li>carbide</li>
 </template>
