@@ -73,7 +73,7 @@ export const loadFragment = ({copy, from, self}: XtalFragment) =>{
     }
 };
 
-const propActions = [] as PropAction[];
+const propActions = [loadFragment] as PropAction[];
 const baseProp: PropDef = {
     async: true,
     dry: true
@@ -92,7 +92,7 @@ const propDefMap: PropDefMap<XtalFragment> = {
 };
 
 const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
-
+xc.letThereBeProps(XtalFragment, slicedPropDefs, 'onPropChange');
 
 
 xc.define(XtalFragment);

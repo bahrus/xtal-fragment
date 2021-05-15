@@ -64,7 +64,7 @@ export const loadFragment = ({ copy, from, self }) => {
         self.lastOwnedSibling = appendages.pop();
     }
 };
-const propActions = [];
+const propActions = [loadFragment];
 const baseProp = {
     async: true,
     dry: true
@@ -82,4 +82,5 @@ const propDefMap = {
     }
 };
 const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
+xc.letThereBeProps(XtalFragment, slicedPropDefs, 'onPropChange');
 xc.define(XtalFragment);
