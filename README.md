@@ -4,7 +4,7 @@ xtal-fragment is a web component that is similar to [carbon-copy](https://github
 
 The name of the component draws inspiration from [React fragments](https://mariusschulz.com/blog/jsx-fragment-syntax-in-typescript#:~:text=A%20fragment%20lets%20us%20group%20multiple%20JSX%20elements,React.Fragment%20instead%20of%20using%20the%20new%20JSX%20syntax%3A), and there is perhaps a small overlap in goals between the two.
 
-## Syntax [TODO]
+## Syntax
 
 ```html
 <template id=ionic-crystals>
@@ -48,24 +48,24 @@ produces:
 
 Deleting the xtal-fragment element causes the "ownedSiblings" to also part middle-DOM.
 
-**NB:**  This component may not play well with other rendering libraries. For a rendering library to be compatible with this component, it must:
+**NB:**  This component may not play well with other rendering libraries. For a rendering library to be compatible with this component, it must use the following API:
 
-1.  Move the fragment owned by the xtal-fragment instance via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
+1.  If the contents owned by xtal-fragment need to be moved, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
 2.  Skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
 
 ## Vague Larger Problem Statement
 
 Be able to develop a generic component like [e.g. xtal-props](https://github.com/bahrus/xtal-props) while adhering to goals of [metamorf](https://github.com/bahrus/metamorf)
 
-For example, we want to wrap fields in categories.
+For example, a key functionality for xtal-props is to be able to group properties by category.
 
-So the natural thing is to use native fieldset, that's what it is designed for.
+So the natural thing is to use native fieldset -- that's what it is designed for.
 
-Or maybe later we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."  Do so without rewriting the host component (xtal-props).
+But maybe later we want to "dependency inject" some other, more sophisticated fieldset equivalent that does what fieldset does, but better, following some design library "language."  We want to be able to replace one for another, but without rewriting the host component (xtal-props).
 
-We could use a wrapper element, but we end with up with deeply nested components just to signify minor enhancements and/or plug'n'play, rather than true parent child relationship.  And/or too much unnecessary shadow dom.
+We could use a general purpose fieldset wrapper element, but we end with up with deeply nested components just to signify minor enhancements and/or plug-n-play, rather than true parent child relationship.  And/or too much unnecessary shadow DOM.
 
-Maybe we want an expandable fieldset, represented by a [decorator](https://github.com/bahrus/xtal-deco):
+To give a more specific example, maybe we want an expandable fieldset, represented by a [decorator](https://github.com/bahrus/xtal-deco):
 
 ```html
 <make-fieldset-expandable></make-fieldset-expandable>
@@ -76,7 +76,7 @@ Maybe we want an expandable fieldset, represented by a [decorator](https://githu
 
 How can we do the equivalent of dependency injection, where we have "interfaces" where we centralize the pain as far as mapping these interfaces to implementations?
 
-Instead of web component wrapper, use templates, with the help of a reusable element [xtal-wrap](https://github.com/bahrus/xtal-wrap):
+Instead of a web component wrapper, why not use templates, with the help of a reusable element [xtal-wrap](https://github.com/bahrus/xtal-wrap):
 
 ```html
 <template id=my-field-category-holder>
