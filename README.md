@@ -37,10 +37,10 @@ produces:
 </template>
 
 <ul>
-  <xtal-fragment copy from=./ionic-crystals style=display:none></xtal-fragment>
+  <xtal-fragment copy from=ionic-crystals style=display:none></xtal-fragment>
   <li>potassium chloride</li>
   <li>potassium fluoride</li>  
-  <xtal-fragment copy from=./covalent-crystals style=display:none></xtal-fragment>
+  <xtal-fragment copy from=covalent-crystals style=display:none></xtal-fragment>
   <li>diamond</li>
   <li>carbide</li>
 </ul>
