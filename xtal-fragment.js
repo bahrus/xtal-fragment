@@ -7,13 +7,16 @@ export class XtalFragment extends HTMLElement {
         this.self = this;
         this.propActions = propActions;
         this.reactor = new xc.Rx(this);
+        this.isVisual = false;
         //TODO: mixin
         this._retries = 0;
-        this.ownedSiblings = new WeakSet();
         this._doNotCleanUp = false;
     }
+    clonedTemplateCallback(clonedTemplate) { }
     connectedCallback() {
-        this.style.display = 'none';
+        if (!this.isVisual) {
+            this.style.display = 'none';
+        }
         xc.mergeProps(this, slicedPropDefs);
     }
     onPropChange(n, prop, nv) {
@@ -60,7 +63,7 @@ export const loadFragment = ({ copy, from, self }) => {
     }
     else {
         self.ownedRange?.deleteContents();
-        const appendages = insertAdjacentTemplate(templ, self, 'afterend');
+        const appendages = insertAdjacentTemplate(templ, self, 'afterend', self.clonedTemplateCallback.bind(self));
         self.lastOwnedSibling = appendages.pop();
     }
 };
