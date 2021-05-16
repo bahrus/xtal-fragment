@@ -29,9 +29,6 @@ produces:
 
 ```html
 
-
-
-
 <ul>
   <xtal-fragment copy from=ionic-crystals style=display:none></xtal-fragment>
   <li><h3>Ionic Crystals</h3></li>

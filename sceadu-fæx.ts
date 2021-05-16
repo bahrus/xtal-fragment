@@ -5,7 +5,7 @@ export class SceaduFæx extends XtalFragment{
     isVisual = true;
     propActions = propActions;
     clonedTemplateCallback(clonedTemplate: DocumentFragment){
-
+        console.log(clonedTemplate);
     }
     lightTemplate: HTMLTemplateElement | undefined;
     connectedCallback(){
@@ -14,15 +14,18 @@ export class SceaduFæx extends XtalFragment{
         sr.innerHTML = "<slot></slot>";
         const slot = sr.firstChild as HTMLSlotElement;
         sr.addEventListener('slotchange', e => {
-            this.lightTemplate = slot.assignedElements()[0] as HTMLTemplateElement;
-            //console.log(slot.assignedElements()[0]);
-            
+            const assignedElements = slot.assignedElements();
+            if(assignedElements.length === 0) return;
+            const templ = assignedElements[0];
+            if(templ.localName !== 'template') return;
+            this.lightTemplate = templ as HTMLTemplateElement;
+            templ.remove();
         });
     }
 
 }
 export const loadFragmentWithSlots = ({copy, from, self, lightTemplate}: SceaduFæx) => {
-    console.log(lightTemplate);
+    loadFragment(self);
 };
 const propActions = [loadFragmentWithSlots] as PropAction[];
 const propDefMap: PropDefMap<SceaduFæx> = {

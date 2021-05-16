@@ -1,4 +1,4 @@
-import { XtalFragment } from './xtal-fragment.js';
+import { XtalFragment, loadFragment } from './xtal-fragment.js';
 import { xc } from 'xtal-element/lib/XtalCore.js';
 export class SceaduFæx extends XtalFragment {
     constructor() {
@@ -7,6 +7,7 @@ export class SceaduFæx extends XtalFragment {
         this.propActions = propActions;
     }
     clonedTemplateCallback(clonedTemplate) {
+        console.log(clonedTemplate);
     }
     connectedCallback() {
         super.connectedCallback();
@@ -14,14 +15,20 @@ export class SceaduFæx extends XtalFragment {
         sr.innerHTML = "<slot></slot>";
         const slot = sr.firstChild;
         sr.addEventListener('slotchange', e => {
-            this.lightTemplate = slot.assignedElements()[0];
-            //console.log(slot.assignedElements()[0]);
+            const assignedElements = slot.assignedElements();
+            if (assignedElements.length === 0)
+                return;
+            const templ = assignedElements[0];
+            if (templ.localName !== 'template')
+                return;
+            this.lightTemplate = templ;
+            templ.remove();
         });
     }
 }
 SceaduFæx.is = 'sceadu-fæx';
 export const loadFragmentWithSlots = ({ copy, from, self, lightTemplate }) => {
-    console.log(lightTemplate);
+    loadFragment(self);
 };
 const propActions = [loadFragmentWithSlots];
 const propDefMap = {
