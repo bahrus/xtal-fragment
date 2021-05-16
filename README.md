@@ -48,6 +48,8 @@ Deleting the xtal-fragment element causes the "ownedSiblings" to also part middl
 1.  If the contents "owned" by xtal-fragment need to be moved to a new location in the DOM tree, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
 2.  The rendering library may need to skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling, where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
 
+xtal-fragment also serves as the base class for a hierarchy of components that add additional functionality, starting with [sceadu-fæx](https://github.com/bahrus/sceadu-fax).
+
 ## Vague Larger Problem Statement
 
 Be able to develop a generic component like [e.g. xtal-props](https://github.com/bahrus/xtal-props) while adhering to the goals of [metamorf](https://github.com/bahrus/metamorf)
