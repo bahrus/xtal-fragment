@@ -12,7 +12,7 @@
     "url": "git+https://github.com/bahrus/xtal-fragment.git"
   },
   "dependencies": {
-    "trans-render": "0.0.288",
+    "trans-render": "0.0.289",
     "xtal-element": "0.0.393"
   },
   "devDependencies": {

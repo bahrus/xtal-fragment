@@ -20,8 +20,8 @@ The name of the component draws inspiration from [React fragments](https://mariu
 </template>
 
 <ul>
-  <xtal-fragment copy from=./ionic-crystals></xtal-fragment>
-  <xtal-fragment copy from=./covalent-crystals></xtal-fragment>
+  <xtal-fragment copy from=ionic-crystals></xtal-fragment>
+  <xtal-fragment copy from=covalent-crystals></xtal-fragment>
 </ul>
 ```
 
