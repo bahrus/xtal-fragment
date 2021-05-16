@@ -7,8 +7,21 @@ export class SceaduFæx extends XtalFragment {
         this.propActions = propActions;
     }
     clonedTemplateCallback(clonedTemplate) {
-        console.log(clonedTemplate);
+        const clonedLightTemplate = this.lightTemplate.content.cloneNode(true);
+        const slotKeys = {};
+        clonedLightTemplate.querySelectorAll('[slot]').forEach(el => {
+            const slot = el.getAttribute('slot');
+            if (slotKeys[slot] === undefined) {
+                slotKeys[slot] = [];
+            }
+            slotKeys[slot].push(el);
+        });
+        for (const key in slotKeys) {
+            const slotEl = clonedTemplate.querySelector(`slot[name="${key}"]`);
+            slotEl?.append(...slotKeys[key]);
+        }
     }
+    ;
     connectedCallback() {
         super.connectedCallback();
         const sr = this.attachShadow({ mode: 'open' });

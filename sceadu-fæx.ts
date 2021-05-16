@@ -5,8 +5,20 @@ export class SceaduFæx extends XtalFragment{
     isVisual = true;
     propActions = propActions;
     clonedTemplateCallback(clonedTemplate: DocumentFragment){
-        console.log(clonedTemplate);
-    }
+        const clonedLightTemplate = this.lightTemplate!.content.cloneNode(true) as DocumentFragment;
+        const slotKeys: {[key:string]: HTMLElement[]} = {};
+        clonedLightTemplate.querySelectorAll('[slot]').forEach(el => {
+            const slot = el.getAttribute('slot')!;
+            if(slotKeys[slot] === undefined){
+                slotKeys[slot] = [];
+            }
+            slotKeys[slot].push(el as HTMLElement);
+        });
+        for(const key in slotKeys){
+            const slotEl = clonedTemplate.querySelector(`slot[name="${key}"]`);
+            slotEl?.append(...slotKeys[key]);
+        }
+    };
     lightTemplate: HTMLTemplateElement | undefined;
     connectedCallback(){
         super.connectedCallback();
