@@ -1,6 +1,9 @@
 import {xc, PropDef, PropAction, PropDefMap, IReactor, ReactiveSurface} from 'xtal-element/lib/XtalCore.js';
 import {upShadowSearch} from 'trans-render/lib/upShadowSearch.js';
 import {insertAdjacentTemplate} from 'trans-render/lib/insertAdjacentTemplate.js';
+import {applyMixins} from 'xtal-element/lib/applyMixins.js';
+import {GroupedSiblings} from 'xtal-element/lib/GroupedSiblings.js';
+
 export class XtalFragment extends HTMLElement implements ReactiveSurface{
 
     static is = 'xtal-fragment';
@@ -27,38 +30,13 @@ export class XtalFragment extends HTMLElement implements ReactiveSurface{
         this.reactor.addToQueue(prop, nv);
     }
 
-    //TODO: mixin
     _retries = 0;
-    //ownedSiblings: WeakSet<Element> = new WeakSet<Element>();
-    lastOwnedSibling: Element | undefined;
     disconnectedCallback(){
-        if(!this._doNotCleanUp) this.ownedRange?.deleteContents();
-    }
-    get ownedRange(){
-        if(this.lastOwnedSibling !== undefined){
-            const range = document.createRange();
-            range.setStartBefore(this.nextElementSibling!);
-            range.setEndAfter(this.lastOwnedSibling);
-            return range;
-        }  
-    }
-
-    get nextUnownedSibling(){
-        if(this.lastOwnedSibling !== undefined){
-            return this.lastOwnedSibling.nextElementSibling;
-        }
-        return this.nextElementSibling;
-    }
-
-    _doNotCleanUp = false;
-    extractContents(){
-        this._doNotCleanUp = true;
-        const range = document.createRange();
-        range.setStartBefore(this);
-        range.setEndAfter(this.lastOwnedSibling ?? this);
-        return range.extractContents();
+        if(!this._doNotCleanUp) this.groupedRange?.deleteContents();
     }
 }
+
+
 
 export const loadFragment = ({copy, from, self}: XtalFragment) =>{
     const templ = upShadowSearch(self, from!);
@@ -71,9 +49,9 @@ export const loadFragment = ({copy, from, self}: XtalFragment) =>{
             console.error("Unable to locate " + from, self);
         }
     }else{
-        self.ownedRange?.deleteContents();
+        self.groupedRange?.deleteContents();
         const appendages = insertAdjacentTemplate(templ as HTMLTemplateElement, self, 'afterend', self.clonedTemplateCallback.bind(self));
-        self.lastOwnedSibling = appendages.pop();
+        self.lastGroupedSibling = appendages.pop();
     }
 };
 
@@ -97,6 +75,12 @@ const propDefMap: PropDefMap<XtalFragment> = {
 
 const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
 xc.letThereBeProps(XtalFragment, slicedPropDefs, 'onPropChange');
-
+applyMixins(XtalFragment, [GroupedSiblings]);
 
 xc.define(XtalFragment);
+
+export interface XtalFragment extends GroupedSiblings{}
+
+
+
+

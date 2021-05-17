@@ -41,12 +41,12 @@ produces:
 </ul>
 ```
 
-Deleting the xtal-fragment element causes the "ownedSiblings" to also part middle-DOM.
+Deleting the xtal-fragment element causes the "groupedSiblings" to also part middle-DOM.
 
 **NB:**  This component might not play well with other rendering libraries. For a rendering library to be compatible with this component, it must use the following API:
 
-1.  If the contents "owned" by xtal-fragment need to be moved to a new location in the DOM tree, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
-2.  The rendering library may need to skip over the owned siblings when updating the DOM, via $0.nextUnownedSibling, where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
+1.  If the contents "grouped" by xtal-fragment need to be moved to a new location in the DOM tree, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
+2.  The rendering library may need to skip over the grouped siblings when updating the DOM, via $0.nextUngroupedSibling, where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
 
 xtal-fragment also serves as the base class for a hierarchy of components that add additional functionality, starting with [sceadu-fæx](https://github.com/bahrus/sceadu-fax).
 
