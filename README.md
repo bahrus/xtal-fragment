@@ -84,7 +84,7 @@ Instead of a web component wrapper, why not use templates, with the help of a re
 </fieldset>
 </template>
 
-<xtal-wrap copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy>
+<xtal-wrap copy from=my-field-category-holder -my-grid-element-ref -my-chart-element-ref>
   <template>
     <h3 slot=label>My Legend</h3>
     <my-grid slot=field-container></my-grid>
