@@ -17,7 +17,9 @@ export class XtalFragment extends HTMLElement implements ReactiveSurface{
 
     from: string | undefined;
 
-    clonedTemplateCallback(clonedTemplate: DocumentFragment){}
+    clonedTemplateCallback(clonedTemplate: DocumentFragment){
+        this.createRefs(clonedTemplate);
+    }
 
     connectedCallback(){
         if(!this.isVisual) {

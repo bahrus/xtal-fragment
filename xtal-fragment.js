@@ -12,7 +12,9 @@ export class XtalFragment extends HTMLElement {
         this.isVisual = false;
         this._retries = 0;
     }
-    clonedTemplateCallback(clonedTemplate) { }
+    clonedTemplateCallback(clonedTemplate) {
+        this.createRefs(clonedTemplate);
+    }
     connectedCallback() {
         if (!this.isVisual) {
             this.style.display = 'none';
