@@ -1,24 +1,43 @@
 {
   "name": "xtal-fragment",
   "version": "0.0.3",
-  "description": "",
-  "main": "index.js",
+  "description": "Web component that creates grouped siblings from a referenced template",
+  "keywords": [
+    "webcomponents",
+    "webcomponent",
+    "customelements",
+    "customelement",
+    "fragment"
+  ],
+  "main": "xtal-fragment.js",
+  "module": "xtal-fragment.js",
+  "exports": {
+    ".": "./xtal-fragment.js",
+    "./xtal-fragment.js": "./xtal-fragment.js"
+  },
+  "files": [
+    "xtal-*",
+    "types.d.ts"
+  ],
   "scripts": {
     "serve": "node node_modules/xtal-test/serve.js",
+    "package-check": "package-check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahrus/xtal-fragment.git"
   },
+  "types": "./types.d.ts",
   "dependencies": {
     "trans-render": "0.0.289",
     "xtal-element": "0.0.399"
   },
   "devDependencies": {
+    "@skypack/package-check": "0.2.2",
     "xtal-test": "0.0.50"
   },
-  "author": "",
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahrus/xtal-fragment/issues"
