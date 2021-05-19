@@ -48,7 +48,34 @@ Deleting the xtal-fragment element causes the "groupedSiblings" to also part mid
 1.  If the contents "grouped" by xtal-fragment need to be moved to a new location in the DOM tree, this should be done via newDestination.appendChild($0.extractContents()) where $0 is the instance of xtal-fragment.
 2.  The rendering library may need to skip over the grouped siblings when updating the DOM, via $0.nextUngroupedSibling, where $0 is the instance of xtal-fragment (unless the renderer is aware of the contents of the template xtal-fragment is copying from).
 
-xtal-fragment also serves as the base class for a hierarchy of components that add additional functionality, starting with [sceadu-fæx](https://github.com/bahrus/sceadu-fax).
+## Creating references to elements in the template
+
+```html
+<template id=ionic-crystals>
+    <li><h3>Ionic Crystals</h3></li>
+    <li>potassium chloride</li>
+    <li>potassium fluoride</li>
+</template>
+...
+
+<ul>
+  <xtal-fragment id=ionicFragment copy from=ionic-crystals -h3-element-ref></xtal-fragment>
+  ...
+</ul>
+```
+
+... adds a reference to the h3 element contained inside the cloned template:
+
+```JavaScript
+console.log(ionicFragment.h3Element);
+// <h3>IonicCrystals</h3>
+```
+
+If a non-HTML object field is set on xtal-fragment with key h3Element, that object is Object.assigned onto the binding element (h3 in this case).
+
+## Extending component
+
+xtal-fragment also serves as the base class for  [sceadu-fæx](https://github.com/bahrus/sceadu-fax), which adds limited support for slots (transclusion).
 
 ## Vague Larger Problem Statement
 
@@ -73,7 +100,7 @@ To give a more specific example, maybe we want an expandable fieldset, represent
 
 How can we do the equivalent of dependency injection, where we have "interfaces" where we centralize the pain as far as mapping these interfaces to implementations?
 
-Instead of a web component wrapper, why not use templates, with the help of a reusable element [xtal-wrap](https://github.com/bahrus/xtal-wrap):
+Instead of a web component wrapper, why not use templates?:
 
 ```html
 <template id=my-field-category-holder>
@@ -84,19 +111,19 @@ Instead of a web component wrapper, why not use templates, with the help of a re
 </fieldset>
 </template>
 
-<xtal-wrap copy from=my-field-category-holder -my-grid-element-ref -my-chart-element-ref>
+<sceadu-fæx copy from=my-field-category-holder -my-grid-element-ref -my-chart-element-ref>
   <template>
     <h3 slot=label>My Legend</h3>
     <my-grid slot=field-container></my-grid>
     <my-chart slot=field-container></my-chart>
   </template>
-</xtal-wrap>
+</sceadu-fæx>
 ```
 
 generates:
 
 ```html
-<xtal-wrap style=display:none copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></xtal-wrap>
+<sceadu-fæx style=display:none copy from=my-field-category-holder -my-grid-element-proxy -my-chart-element-proxy></sceadu-fæx>
 <make-fieldset-expandable></make-fieldset-expandable>
 <fieldset>
   <legend><h3 slot=label>My Legend</h3></legend>
