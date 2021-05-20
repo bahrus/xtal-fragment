@@ -2,7 +2,7 @@ import {xc, PropDef, PropAction, PropDefMap, IReactor, ReactiveSurface} from 'xt
 import {upShadowSearch} from 'trans-render/lib/upShadowSearch.js';
 import {insertAdjacentTemplate} from 'trans-render/lib/insertAdjacentTemplate.js';
 import {applyMixins} from 'xtal-element/lib/applyMixins.js';
-import {GroupedSiblings} from 'xtal-element/lib/GroupedSiblings.js';
+import {GroupedSiblingsWithRefs} from 'xtal-element/lib/GroupedSiblingsWithRefs.js';
 
 export class XtalFragment extends HTMLElement implements ReactiveSurface{
 
@@ -77,11 +77,11 @@ const propDefMap: PropDefMap<XtalFragment> = {
 
 const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
 xc.letThereBeProps(XtalFragment, slicedPropDefs, 'onPropChange');
-applyMixins(XtalFragment, [GroupedSiblings]);
+applyMixins(XtalFragment, [GroupedSiblingsWithRefs]);
 
 xc.define(XtalFragment);
 
-export interface XtalFragment extends GroupedSiblings{}
+export interface XtalFragment extends GroupedSiblingsWithRefs{}
 
 
 
