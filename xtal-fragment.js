@@ -1,8 +1,9 @@
 import { xc } from 'xtal-element/lib/XtalCore.js';
 import { upShadowSearch } from 'trans-render/lib/upShadowSearch.js';
-import { insertAdjacentTemplate } from 'trans-render/lib/insertAdjacentTemplate.js';
+//import {insertAdjacentTemplate} from 'trans-render/lib/insertAdjacentTemplate.js';
 import { applyMixins } from 'xtal-element/lib/applyMixins.js';
 import { GroupedSiblingsWithRefs } from 'xtal-element/lib/GroupedSiblingsWithRefs.js';
+import { insertAdjacentFragment } from './insertAdjacentFragment.js';
 export class XtalFragment extends HTMLElement {
     constructor() {
         super(...arguments);
@@ -14,6 +15,9 @@ export class XtalFragment extends HTMLElement {
     }
     clonedTemplateCallback(clonedTemplate) {
         this.createRefs(clonedTemplate);
+    }
+    cloneTemplate(templ) {
+        return templ.content.cloneNode(true);
     }
     connectedCallback() {
         if (!this.isVisual) {
@@ -44,7 +48,7 @@ export const loadFragment = ({ copy, from, self }) => {
     }
     else {
         self.groupedRange?.deleteContents();
-        const appendages = insertAdjacentTemplate(templ, self, 'afterend', self.clonedTemplateCallback.bind(self));
+        const appendages = insertAdjacentFragment(self.cloneTemplate(templ), self, 'afterend');
         self.lastGroupedSibling = appendages.pop();
     }
 };
@@ -55,7 +59,7 @@ const baseProp = {
 };
 const propDefMap = {
     copy: {
-        ...baseProp,
+        async: true,
         type: Boolean,
         stopReactionsIfFalsy: true,
     },
