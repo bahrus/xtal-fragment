@@ -16,8 +16,8 @@
     "./xtal-fragment.js": "./xtal-fragment.js"
   },
   "files": [
-    "xtal-*",
-    "types.d.ts"
+    "*.js",
+    "*.ts"
   ],
   "scripts": {
     "serve": "node node_modules/xtal-test/serve.js",
