@@ -3,6 +3,7 @@ import { upShadowSearch } from 'trans-render/lib/upShadowSearch.js';
 //import {insertAdjacentTemplate} from 'trans-render/lib/insertAdjacentTemplate.js';
 import { applyMixins } from 'xtal-element/lib/applyMixins.js';
 import { GroupedSiblingsWithRefs } from 'xtal-element/lib/GroupedSiblingsWithRefs.js';
+import { GroupedSiblings } from 'xtal-element/lib/GroupedSiblings.js';
 import { insertAdjacentFragment } from './insertAdjacentFragment.js';
 export class XtalFragment extends HTMLElement {
     constructor() {
@@ -71,5 +72,5 @@ const propDefMap = {
 };
 const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
 xc.letThereBeProps(XtalFragment, slicedPropDefs, 'onPropChange');
-applyMixins(XtalFragment, [GroupedSiblingsWithRefs]);
+applyMixins(XtalFragment, [GroupedSiblingsWithRefs, GroupedSiblings]);
 xc.define(XtalFragment);
